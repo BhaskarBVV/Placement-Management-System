@@ -26,14 +26,14 @@ namespace Placement_Management_System
 
         public static void DisplayPlaced()
         {
-            string sqlCommand = "select s.roll_number, name, current_package from Student s right join Placed p on s.roll_number = p.roll_number;";
+            string sqlCommand = "select s.roll_number, name, current_package, c.company_name from Student s right join Placed p on s.roll_number = p.roll_number left join Companies c on p.company_id=c.company_id;";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("Roll Number, Name, current_package");
+            Console.WriteLine("Roll Number, Name, Current Package, Company Name");
             Console.ForegroundColor = ConsoleColor.White;
             while (reader.Read())
             {
-                Console.WriteLine($"{reader[0]}, {reader[1]}, {reader[2]}");
+                Console.WriteLine($"{reader[0]}, {reader[1]}, {reader[2]}, {reader[3]}");
             }
             Console.WriteLine();
         }
