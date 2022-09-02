@@ -22,6 +22,7 @@ namespace Placement_Management_System
                         DisplayStudents.DisplayAll();
                         break;
                     case 2:
+                        CompanyDrive.AddCompnay();
                         break;
                     case 3:
                         DisplayStudents.DisplayPlaced();
@@ -30,6 +31,7 @@ namespace Placement_Management_System
                         DisplayStudents.DisplayUnPlaced();
                         break;
                     case 5:
+                        CompanyDrive.ViewStudentCompanies();
                         break;
                 }
             }

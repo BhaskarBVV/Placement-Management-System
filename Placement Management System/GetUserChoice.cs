@@ -19,9 +19,10 @@ namespace Placement_Management_System
             Console.WriteLine("Enter 5 to see a student is allowed in which all companies");
             Console.WriteLine("Enter 0 to exit");
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Enter your choice : ");
+            Console.WriteLine("\nEnter your choice : ");
             Console.ForegroundColor = ConsoleColor.White;
             var key = Console.ReadLine();
+            Console.WriteLine();
             int choice = 0;
             try
             {

@@ -1,7 +1,11 @@
-﻿insert into Companies values(1,"WG");
+﻿
+insert into Companies (company_name) values ("WG");
 insert into Student values(190,"bhaskar");
 insert into Student values(191,"bhaskar2");
 insert into Placed values (190,25.7,1);
+insert into AllowedStudents values(1,"bhaskar2",190);
+
+
 
 
 -- PLaced students
@@ -16,3 +20,10 @@ insert into Placed values (190,25.7,1);
 -- left join Placed p
 -- on s.roll_number = p.roll_number 
 -- where current_package is NULL;
+
+-- View companies in which student x sit;
+-- select company_name
+-- from AllowedStudents a
+-- left join Companies c
+-- on a.company_id=c.company_id
+-- where student_roll_no=X;

@@ -8,23 +8,23 @@ create table if not exists Student (
 );
 
 create table if not exists Companies (
- comapany_id int primary key,
- comapny_name varchar(50)
+ company_id int primary key AUTO_INCREMENT,
+ company_name varchar(50)
 );
 
 create table if not exists Placed (
  roll_number bigint primary key,
  current_package float,
- comapany_id int,
+ company_id int,
  foreign key (roll_number) references Student(roll_number),
- foreign key (comapany_id) references Companies(comapany_id)
+ foreign key (company_id) references Companies(company_id)
 );
 
 create table if not exists AllowedStudents (
- comapany_id int,
+ company_id int,
  student_name Varchar(50),
  student_roll_no bigint,
- CONSTRAINT Pk PRIMARY KEY (comapany_id,student_roll_no),
- foreign key (comapany_id) references Companies(comapany_id),
+ CONSTRAINT Pk PRIMARY KEY (company_id,student_roll_no),
+ foreign key (company_id) references Companies(company_id),
  foreign key (student_roll_no) references Student(roll_number)
 );
