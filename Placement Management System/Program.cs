@@ -31,7 +31,10 @@ namespace Placement_Management_System
                         DisplayStudents.DisplayUnPlaced();
                         break;
                     case 5:
-                        CompanyDrive.ViewStudentCompanies();
+                        CompanyDrive.StudentAllowedCompanies();
+                        break;
+                    case 6:
+                        CompanyDrive.AddSelectedStudent();
                         break;
                 }
             }

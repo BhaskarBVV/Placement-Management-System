@@ -9,12 +9,12 @@ create table if not exists Student (
 
 create table if not exists Companies (
  company_id int primary key AUTO_INCREMENT,
- company_name varchar(50)
+ company_name varchar(50) unique,
+ package float
 );
 
 create table if not exists Placed (
  roll_number bigint primary key,
- current_package float,
  company_id int,
  foreign key (roll_number) references Student(roll_number),
  foreign key (company_id) references Companies(company_id)

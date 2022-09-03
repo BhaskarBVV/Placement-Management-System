@@ -29,7 +29,12 @@ namespace Placement_Management_System
             string sqlCommand = $"Select * from Student where roll_number={roll}";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             if(!reader.HasRows)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No student with such roll number exists !! Try with a valid roll number\n");
+                Console.ForegroundColor = ConsoleColor.White;
                 return false;
+            }
             return true;
         }
     }

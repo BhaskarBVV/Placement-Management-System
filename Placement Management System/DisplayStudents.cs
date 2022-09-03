@@ -26,8 +26,17 @@ namespace Placement_Management_System
 
         public static void DisplayPlaced()
         {
-            string sqlCommand = "select s.roll_number, name, current_package, c.company_name from Student s right join Placed p on s.roll_number = p.roll_number left join Companies c on p.company_id=c.company_id;";
+            string sqlCommand = "select s.roll_number, name, package, company_name from Student s right join Placed p on s.roll_number = p.roll_number left join Companies c on c.company_id=p.company_id;";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
+            
+            if(!reader.HasRows)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No one placed yet\n");
+                Console.ForegroundColor = ConsoleColor.White;
+                return;
+            }
+
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("Roll Number, Name, Current Package, Company Name");
             Console.ForegroundColor = ConsoleColor.White;
@@ -40,7 +49,7 @@ namespace Placement_Management_System
 
         public static void DisplayUnPlaced()
         {
-            string sqlCommand = "select s.roll_number, name from Student s left join Placed p on s.roll_number = p.roll_number  where current_package is NULL;";
+            string sqlCommand = "select s.roll_number, name from Student s left join Placed p on s.roll_number = p.roll_number  where company_id is NULL;";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("Roll Number, Name");
