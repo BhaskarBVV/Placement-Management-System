@@ -14,7 +14,17 @@ namespace Placement_Management_System
             Console.WriteLine("Enter tha package of the company : ");
             double companyPackage = Convert.ToDouble(Console.ReadLine());
             string sqlCommand = $"insert into Companies (company_name, package) values ('{companyName}',{companyPackage})";
-            EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
+            try
+            {
+                EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
+            }
+            catch
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nCompany already exsits\n");
+                Console.ForegroundColor = ConsoleColor.White;
+                return;
+            }
             sqlCommand= $"select company_id from Companies where company_name='{companyName}'";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             int companyId = -1;

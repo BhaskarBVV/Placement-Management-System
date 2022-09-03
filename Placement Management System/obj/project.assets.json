@@ -903,11 +903,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\codes\\Editors\\C#\\Placement-Management-System\\Placement Management System\\Placement Management System.csproj",
+      "projectUniqueName": "D:\\codes\\Placement-Management-System\\Placement Management System\\Placement Management System.csproj",
       "projectName": "Placement Management System",
-      "projectPath": "D:\\codes\\Editors\\C#\\Placement-Management-System\\Placement Management System\\Placement Management System.csproj",
+      "projectPath": "D:\\codes\\Placement-Management-System\\Placement Management System\\Placement Management System.csproj",
       "packagesPath": "C:\\Users\\Bhaskar\\.nuget\\packages\\",
-      "outputPath": "D:\\codes\\Editors\\C#\\Placement-Management-System\\Placement Management System\\obj\\",
+      "outputPath": "D:\\codes\\Placement-Management-System\\Placement Management System\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Bhaskar\\AppData\\Roaming\\NuGet\\NuGet.Config",
