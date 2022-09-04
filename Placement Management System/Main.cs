@@ -39,6 +39,9 @@ namespace Placement_Management_System
                     case 6:
                         CompanyDrive.AddSelectedStudent();
                         break;
+                    case 7:
+                        CompanyDrive.DeletePlacedStudent();
+                        break;
                 }
             }
         }

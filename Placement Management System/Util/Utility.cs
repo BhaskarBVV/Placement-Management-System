@@ -49,6 +49,7 @@ namespace Placement_Management_System.Util
             Console.WriteLine("Enter 4 to list all unplaced students");
             Console.WriteLine("Enter 5 to see a student is allowed in which all companies");
             Console.WriteLine("Enter 6 to add placed student");
+            Console.WriteLine("Enter 7 to delete a placed student");
             Console.WriteLine("Enter 0 to exit");
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nEnter your choice : ");
@@ -66,7 +67,7 @@ namespace Placement_Management_System.Util
                 Console.WriteLine("\n---Print Invlaid choice, try again---\n");
                 return GetChoice();
             }
-            if (!(choice >= 0 && choice <= 6))
+            if (!(choice >= 0 && choice <= 7))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\n---Print Invlaid choice, try again---\n");

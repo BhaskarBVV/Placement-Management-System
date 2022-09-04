@@ -165,5 +165,29 @@ namespace Placement_Management_System.Company
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
         }
+
+        public static void DeletePlacedStudent()
+        {
+            int rollNumber = Utility.GetRollNumber();
+            Console.WriteLine();
+            bool doesExist = Utility.ValidateRollNumber(rollNumber);
+            if (!doesExist)
+                return;
+            string sqlCommand = $"Select * from Placed where roll_number = {rollNumber}";
+            MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
+            if(!reader.HasRows)
+            {
+                Console.ForegroundColor=ConsoleColor.Red;
+                Console.WriteLine("Opps! Selected student is not placed yet !!\n");
+                Console.ForegroundColor = ConsoleColor.White;
+                return;
+            }
+            sqlCommand = $"delete from Placed where roll_number = {rollNumber};";
+            EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Student successfully removed\n");
+            Console.ForegroundColor = ConsoleColor.White;
+            return;
+        }
     }
 }
