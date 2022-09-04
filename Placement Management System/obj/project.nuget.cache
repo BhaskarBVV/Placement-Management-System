@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "8NhU0LBqem8TCw1bol5aU3DwIhHELWeH/Hnf9PWNUQXtX/OmQanIghkoA/b8rov3lj+rjdxloy42PGaL5/90JQ==",
+  "dgSpecHash": "JdTqlWS0HY7ELi98sR4LolZGOwvndTShwaE/KZPRYErOs4J4n+tMkHsZEsLlR6KUWwe/z2Tu+9NNVvILU61LBg==",
   "success": true,
   "projectFilePath": "D:\\codes\\Editors\\C#\\Placement-Management-System\\Placement Management System\\Placement Management System.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Bhaskar\\.nuget\\packages\\betterconsoletables\\1.1.3\\betterconsoletables.1.1.3.nupkg.sha512",
     "C:\\Users\\Bhaskar\\.nuget\\packages\\google.protobuf\\3.19.4\\google.protobuf.3.19.4.nupkg.sha512",
     "C:\\Users\\Bhaskar\\.nuget\\packages\\k4os.compression.lz4\\1.2.6\\k4os.compression.lz4.1.2.6.nupkg.sha512",
     "C:\\Users\\Bhaskar\\.nuget\\packages\\k4os.compression.lz4.streams\\1.2.6\\k4os.compression.lz4.streams.1.2.6.nupkg.sha512",

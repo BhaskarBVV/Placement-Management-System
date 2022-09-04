@@ -100,7 +100,6 @@ namespace Placement_Management_System.Company
             Console.ForegroundColor = ConsoleColor.White;
 
             idx = Utility.GetCompanyIndex(al.Count);
-
             if (curCompanyId == al[idx].id || al[idx].package < currentPackage)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -119,8 +118,8 @@ namespace Placement_Management_System.Company
                 sqlCommand = $"update Placed set company_id={al[idx].id} where roll_number={roll_number};";
                 EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             }
-            al.Clear();
             Console.WriteLine($"Successfully placed in {al[idx].name}");
+            al.Clear();
         }
 
         public static void StudentAllowedCompanies()

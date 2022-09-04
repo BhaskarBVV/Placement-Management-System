@@ -138,3 +138,4 @@ D:\codes\Editors\C#\BhaskarBVV\Placement-Management-System\Placement Management 
 D:\codes\Editors\C#\BhaskarBVV\Placement-Management-System\Placement Management System\obj\Debug\net6.0\Placement Management System.pdb
 D:\codes\Editors\C#\BhaskarBVV\Placement-Management-System\Placement Management System\obj\Debug\net6.0\Placement Management System.genruntimeconfig.cache
 D:\codes\Editors\C#\BhaskarBVV\Placement-Management-System\Placement Management System\obj\Debug\net6.0\ref\Placement Management System.dll
+D:\codes\Editors\C#\Placement-Management-System\Placement Management System\bin\Debug\net6.0\BetterConsoleTables.dll

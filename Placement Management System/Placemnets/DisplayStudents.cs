@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BetterConsoleTables;
 using MySql.Data.MySqlClient;
 using Placement_Management_System.Database;
 
@@ -14,14 +11,16 @@ namespace Placement_Management_System.Placemnets
         {
             string sqlCommand = "Select * from Student";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("Roll Number, Name");
-            Console.ForegroundColor = ConsoleColor.White;
+            Table table = new Table("Roll Number", "Name");
+            table.Config = TableConfiguration.MySql();
             while (reader.Read())
             {
-                Console.WriteLine($"{reader[0]}, {reader[1]}");
+                table.AddRow(reader[0], reader[1]);
             }
-            Console.WriteLine();
+            Console.WriteLine("List of all students");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine(table.ToString());
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void DisplayPlaced()
@@ -37,28 +36,31 @@ namespace Placement_Management_System.Placemnets
                 return;
             }
 
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("Roll Number, Name, Current Package, Company Name");
-            Console.ForegroundColor = ConsoleColor.White;
+            Table table = new Table("Roll Number", "Name", "Current Package", "Company Name");
+            table.Config = TableConfiguration.MySql();
             while (reader.Read())
             {
-                Console.WriteLine($"{reader[0]}, {reader[1]}, {reader[2]}, {reader[3]}");
+                table.AddRow(reader[0], reader[1], reader[2], reader[3]);
             }
-            Console.WriteLine();
+            Console.WriteLine("List of all Placed students");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine(table.ToString());
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         public static void DisplayUnPlaced()
         {
             string sqlCommand = "select s.roll_number, name from Student s left join Placed p on s.roll_number = p.roll_number  where company_id is NULL;";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("Roll Number, Name");
-            Console.ForegroundColor = ConsoleColor.White;
+            Table table = new Table("Roll Number", "Name");
+            table.Config = TableConfiguration.MySql();
             while (reader.Read())
             {
-                Console.WriteLine($"{reader[0]}, {reader[1]}");
+                table.AddRow(reader[0], reader[1]);
             }
-            Console.WriteLine();
+            Console.WriteLine("List of all Unplaced students");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine(table.ToString());
             Console.ForegroundColor = ConsoleColor.White;
         }
     }

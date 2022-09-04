@@ -77,10 +77,11 @@ namespace Placement_Management_System.Util
 
         public static int GetCompanyIndex(int arraySize)
         {
-            int idx = -1;
+            var input = Console.ReadLine();
+            int idx;
             try
             {
-                idx = Convert.ToInt32(Console.ReadLine());
+                idx = Convert.ToInt32(input);
             }
             catch
             {
