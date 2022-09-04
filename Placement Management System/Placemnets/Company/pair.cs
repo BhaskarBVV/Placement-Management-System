@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Placement_Management_System
+namespace Placement_Management_System.Company
 {
     internal class pair
     {
@@ -15,7 +15,7 @@ namespace Placement_Management_System
         {
             this.name = name;
             this.package = package;
-            this.id = id;   
+            this.id = id;
         }
     }
 }

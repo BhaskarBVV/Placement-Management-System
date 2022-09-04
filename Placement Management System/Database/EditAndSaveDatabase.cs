@@ -1,7 +1,7 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
 
-namespace Placement_Management_System
+namespace Placement_Management_System.Database
 {
     internal class EditAndSaveDatabase
     {

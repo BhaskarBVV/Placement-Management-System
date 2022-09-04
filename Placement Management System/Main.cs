@@ -1,4 +1,7 @@
 ﻿using System;
+using Placement_Management_System.Company;
+using Placement_Management_System.Placemnets;
+using Placement_Management_System.Util;
 
 namespace Placement_Management_System
 {
@@ -11,7 +14,7 @@ namespace Placement_Management_System
             int remainInLoop = 1;
             while (remainInLoop == 1)
             {
-                int choice = GetUserChoice.GetChoice();
+                int choice = Utility.GetChoice();
 
                 switch (choice)
                 {

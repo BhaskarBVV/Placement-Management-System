@@ -1,9 +1,10 @@
 ﻿using System;
 using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
+using Placement_Management_System.Database;
+using Placement_Management_System.Util;
 
-
-namespace Placement_Management_System
+namespace Placement_Management_System.Company
 {
     internal class CompanyDrive
     {
@@ -25,10 +26,10 @@ namespace Placement_Management_System
                 Console.ForegroundColor = ConsoleColor.White;
                 return;
             }
-            sqlCommand= $"select company_id from Companies where company_name='{companyName}'";
+            sqlCommand = $"select company_id from Companies where company_name='{companyName}'";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             int companyId = -1;
-            while(reader.Read())
+            while (reader.Read())
             {
                 companyId = Convert.ToInt32(reader[0]);
             }
@@ -42,11 +43,11 @@ namespace Placement_Management_System
             Console.WriteLine("Roll Number, Name");
             Console.ForegroundColor = ConsoleColor.White;
             int currentPackage = -1;
-            while(reader.Read())
+            while (reader.Read())
             {
                 if (reader[2] != DBNull.Value)
                     currentPackage = Convert.ToInt32(reader[2]);
-                if (reader[2]==DBNull.Value ||  currentPackage+4.0<companyPackage)
+                if (reader[2] == DBNull.Value || currentPackage + 4.0 < companyPackage)
                 {
                     Console.WriteLine($"{reader[0]}, {reader[3]}");
                     sqlCommand = $"insert into AllowedStudents values({companyId},'{reader[3]}',{reader[0]});";
@@ -69,26 +70,26 @@ namespace Placement_Management_System
             if (reader.Read())
             {
                 currentPackage = Convert.ToInt32(reader[0]);
-                curCompanyId = Convert.ToInt32(reader[1]); 
-            }   
+                curCompanyId = Convert.ToInt32(reader[1]);
+            }
 
             // getting the list of companies in which student is allowed to sit.
             sqlCommand = $"select company_name, package, c.company_id from AllowedStudents a left join Companies c on a.company_id=c.company_id where student_roll_no={roll_number};";
             reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
 
-            if(!reader.HasRows)
+            if (!reader.HasRows)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Not allowed in any till yet..!\n");
                 Console.ForegroundColor = ConsoleColor.White;
-                return ;
+                return;
             }
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nSelected in which company : ");
             Console.ForegroundColor = ConsoleColor.Yellow;
             List<pair> al = new List<pair>();
             int idx = 0;
-            while(reader.Read())
+            while (reader.Read())
             {
                 al.Add(new pair(Convert.ToString(reader[0]), Convert.ToDouble(reader[1]), Convert.ToInt32(reader[2])));
                 Console.WriteLine($"{idx} {reader[0]} {reader[1]}");
@@ -98,7 +99,7 @@ namespace Placement_Management_System
             Console.WriteLine("Enter the company number : ");
             Console.ForegroundColor = ConsoleColor.White;
 
-            idx = GetUserChoice.GetCompanyIndex(al.Count);
+            idx = Utility.GetCompanyIndex(al.Count);
 
             if (curCompanyId == al[idx].id || al[idx].package < currentPackage)
             {
@@ -125,21 +126,21 @@ namespace Placement_Management_System
         public static void StudentAllowedCompanies()
         {
             // this function is used to display the list of all the companies in which the student was allowed to sit
-            int rollNumber=Utility.GetRollNumber();
+            int rollNumber = Utility.GetRollNumber();
             Console.WriteLine();
             bool doesExist = Utility.ValidateRollNumber(rollNumber);
-            if(!doesExist)
+            if (!doesExist)
                 return;
-            
+
             Console.ForegroundColor = ConsoleColor.Green;
             string sqlCommand = $"select company_name, package from AllowedStudents a left join Companies c on a.company_id=c.company_id where student_roll_no={rollNumber};";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
-            if(!reader.HasRows)
+            if (!reader.HasRows)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine($"Not allowed in any till yet..!\n");
                 Console.ForegroundColor = ConsoleColor.White;
-                return ;
+                return;
             }
             Console.WriteLine($"Displaying the list of all comapnies\n");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
