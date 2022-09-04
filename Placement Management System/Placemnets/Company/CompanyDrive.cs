@@ -1,4 +1,5 @@
 ﻿using System;
+using BetterConsoleTables;
 using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 using Placement_Management_System.Database;
@@ -10,9 +11,13 @@ namespace Placement_Management_System.Company
     {
         public static void AddCompnay()
         {
-            Console.WriteLine("Enter tha name of the company : ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Enter the name of the company : ");
+            Console.ForegroundColor = ConsoleColor.White;
             string companyName = Console.ReadLine().ToUpper();
-            Console.WriteLine("Enter tha package of the company : ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Enter tha package offered : ");
+            Console.ForegroundColor = ConsoleColor.White;
             double companyPackage = Convert.ToDouble(Console.ReadLine());
             string sqlCommand = $"insert into Companies (company_name, package) values ('{companyName}',{companyPackage})";
             try
@@ -37,11 +42,10 @@ namespace Placement_Management_System.Company
             // creating a list of allowed students
             sqlCommand = "select s.roll_number, c.company_id, package, s.name from Student s left join Placed p on s.roll_number = p.roll_number left join Companies c on p.company_id=c.company_id;";
             reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
-            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nList of allowed students:");
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("Roll Number, Name");
-            Console.ForegroundColor = ConsoleColor.White;
+            Table table = new Table("Roll Number", "Name");
+            table.Config = TableConfiguration.MySql();
             int currentPackage = -1;
             while (reader.Read())
             {
@@ -49,11 +53,14 @@ namespace Placement_Management_System.Company
                     currentPackage = Convert.ToInt32(reader[2]);
                 if (reader[2] == DBNull.Value || currentPackage + 4.0 < companyPackage)
                 {
-                    Console.WriteLine($"{reader[0]}, {reader[3]}");
+                    table.AddRow(reader[0], reader[3]);
                     sqlCommand = $"insert into AllowedStudents values({companyId},'{reader[3]}',{reader[0]});";
                     EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
                 }
             }
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine(table.ToString());
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
         }
 
@@ -84,17 +91,20 @@ namespace Placement_Management_System.Company
                 Console.ForegroundColor = ConsoleColor.White;
                 return;
             }
-            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nSelected in which company : ");
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Table table = new Table("S.No.", "Company Name", "Package");
+            table.Config = TableConfiguration.MySql();
             List<pair> al = new List<pair>();
             int idx = 0;
             while (reader.Read())
             {
+                table.AddRow(idx, reader[0], reader[1]);
                 al.Add(new pair(Convert.ToString(reader[0]), Convert.ToDouble(reader[1]), Convert.ToInt32(reader[2])));
-                Console.WriteLine($"{idx} {reader[0]} {reader[1]}");
                 idx++;
             }
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.Write(table.ToString());
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Enter the company number : ");
             Console.ForegroundColor = ConsoleColor.White;
@@ -103,7 +113,7 @@ namespace Placement_Management_System.Company
             if (curCompanyId == al[idx].id || al[idx].package < currentPackage)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\nNew package cannot be less than the current Package And,\nNew company cannot be same as current Compnay !\n");
+                Console.WriteLine("\nAlert!!!\nNew package cannot be less than the current Package And,\nNew company cannot be same as current Compnay !\n");
                 Console.ForegroundColor = ConsoleColor.White;
                 return;
             }
@@ -118,7 +128,9 @@ namespace Placement_Management_System.Company
                 sqlCommand = $"update Placed set company_id={al[idx].id} where roll_number={roll_number};";
                 EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             }
-            Console.WriteLine($"Successfully placed in {al[idx].name}");
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Successfully placed in {al[idx].name}\n");
+            Console.ForegroundColor = ConsoleColor.White;
             al.Clear();
         }
 
@@ -131,7 +143,6 @@ namespace Placement_Management_System.Company
             if (!doesExist)
                 return;
 
-            Console.ForegroundColor = ConsoleColor.Green;
             string sqlCommand = $"select company_name, package from AllowedStudents a left join Companies c on a.company_id=c.company_id where student_roll_no={rollNumber};";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             if (!reader.HasRows)
@@ -141,14 +152,17 @@ namespace Placement_Management_System.Company
                 Console.ForegroundColor = ConsoleColor.White;
                 return;
             }
-            Console.WriteLine($"Displaying the list of all comapnies\n");
-            Console.ForegroundColor = ConsoleColor.DarkCyan;
-            Console.WriteLine("Company Name");
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Displaying the list of all comapnies");
+            Table table = new Table("Company Name", "Package");
+            table.Config = TableConfiguration.MySql();
             while (reader.Read())
             {
-                Console.WriteLine($"{reader[0]}, {reader[1]}Lpa");
+                table.AddRow(reader[0], reader[1]);
             }
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine(table.ToString());
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
         }
     }

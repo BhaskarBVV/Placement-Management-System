@@ -17,6 +17,7 @@ namespace Placement_Management_System.Placemnets
             {
                 table.AddRow(reader[0], reader[1]);
             }
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("List of all students");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine(table.ToString());
@@ -42,6 +43,7 @@ namespace Placement_Management_System.Placemnets
             {
                 table.AddRow(reader[0], reader[1], reader[2], reader[3]);
             }
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("List of all Placed students");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine(table.ToString());
@@ -58,6 +60,7 @@ namespace Placement_Management_System.Placemnets
             {
                 table.AddRow(reader[0], reader[1]);
             }
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("List of all Unplaced students");
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine(table.ToString());
