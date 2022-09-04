@@ -8,7 +8,6 @@ namespace Placement_Management_System
 {
     public class GetUserChoice
     {
-        public int a;
         public static int GetChoice()
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -43,5 +42,31 @@ namespace Placement_Management_System
             }
             return choice;   
         }
+
+        public static int GetCompanyIndex(int arraySize)
+        {
+            int idx = -1;
+            try
+            {
+                idx = Convert.ToInt32(Console.ReadLine());
+            }
+            catch
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invlaid Input try again");
+                Console.ForegroundColor = ConsoleColor.White;
+                return GetCompanyIndex(arraySize);
+            }
+            while (!(idx >= 0 && idx <= arraySize))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Invlaid index try again");
+                Console.ForegroundColor = ConsoleColor.White;
+                return GetCompanyIndex(arraySize);
+            }
+            return idx;
+        }
     }
 }
+
+

@@ -6,7 +6,7 @@ namespace Placement_Management_System
     {
         public static int GetRollNumber()
         {
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Enter the roll number : ");
             Console.ForegroundColor = ConsoleColor.White;
             var user_input = Console.ReadLine();

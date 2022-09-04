@@ -60,10 +60,21 @@ namespace Placement_Management_System
         {
             int roll_number = Utility.GetRollNumber();
             bool doesExist = Utility.ValidateRollNumber(roll_number);
-            if(!doesExist)
+            if (!doesExist)
                 return;
-            string sqlCommand = $"select company_name, package from AllowedStudents a left join Companies c on a.company_id=c.company_id where student_roll_no={roll_number};";
+            //finding the current package.
+            string sqlCommand = $"select package,c.company_id from Placed p left join Companies c on p.company_id=c.company_id where p.roll_number = {roll_number};";
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
+            int currentPackage = -1, curCompanyId = -1;
+            if (reader.Read())
+            {
+                currentPackage = Convert.ToInt32(reader[0]);
+                curCompanyId = Convert.ToInt32(reader[1]); 
+            }   
+
+            // getting the list of companies in which student is allowed to sit.
+            sqlCommand = $"select company_name, package, c.company_id from AllowedStudents a left join Companies c on a.company_id=c.company_id where student_roll_no={roll_number};";
+            reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
 
             if(!reader.HasRows)
             {
@@ -72,28 +83,43 @@ namespace Placement_Management_System
                 Console.ForegroundColor = ConsoleColor.White;
                 return ;
             }
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nSelected in which company : ");
-            
+            Console.ForegroundColor = ConsoleColor.Yellow;
             List<pair> al = new List<pair>();
-
             int idx = 0;
             while(reader.Read())
             {
-                al.Add(new pair(Convert.ToString(reader[0]), Convert.ToDouble(reader[1])));
+                al.Add(new pair(Convert.ToString(reader[0]), Convert.ToDouble(reader[1]), Convert.ToInt32(reader[2])));
                 Console.WriteLine($"{idx} {reader[0]} {reader[1]}");
                 idx++;
             }
-            idx=Convert.ToInt32(Console.ReadLine());
-            sqlCommand = $"select company_id from Companies where company_name='{al[idx].name}'";
-            reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
-            int companyId = -1;
-            while(reader.Read())
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Enter the company number : ");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            idx = GetUserChoice.GetCompanyIndex(al.Count);
+
+            if (curCompanyId == al[idx].id || al[idx].package < currentPackage)
             {
-                companyId = Convert.ToInt32(reader[0]);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("\nNew package cannot be less than the current Package And,\nNew company cannot be same as current Compnay !\n");
+                Console.ForegroundColor = ConsoleColor.White;
+                return;
             }
-            sqlCommand = $"insert into Placed values({roll_number},{companyId})";
-            EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
+
+            if (currentPackage == -1)
+            {
+                sqlCommand = $"insert into Placed values({roll_number},{al[idx].id})";
+                EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
+            }
+            else
+            {
+                sqlCommand = $"update Placed set company_id={al[idx].id} where roll_number={roll_number};";
+                EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
+            }
             al.Clear();
+            Console.WriteLine($"Successfully placed in {al[idx].name}");
         }
 
         public static void StudentAllowedCompanies()

@@ -10,10 +10,12 @@ namespace Placement_Management_System
     {
         public string name;
         public double package;
-        public pair(string name, double package)
+        public int id;
+        public pair(string name, double package, int id)
         {
             this.name = name;
             this.package = package;
+            this.id = id;   
         }
     }
 }
