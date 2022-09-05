@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Sql>
+	<SelectAll>Select * from Student;</SelectAll>
+	<Placed>select s.roll_number, name, package, company_name from Student s right join Placed p on s.roll_number = p.roll_number left join Companies c on c.company_id=p.company_id order by p.roll_number;</Placed>
+	<UnPlaced>select s.roll_number, name from Student s left join Placed p on s.roll_number = p.roll_number  where company_id is NULL order by p.roll_number;</UnPlaced>
+	<AddCompany>insert into Companies (company_name, package) values ('{0}',{1})</AddCompany>
+	<GetCompanyId>select company_id from Companies where company_name='{0}'</GetCompanyId>
+	<AllowedStudents>select s.roll_number, c.company_id, package, s.name from Student s left join Placed p on s.roll_number = p.roll_number left join Companies c on p.company_id=c.company_id;</AllowedStudents>
+	<AddAllowedStudent>insert into AllowedStudents values({0},'{1}',{2})</AddAllowedStudent>
+	<GetCurrentPackage>select package,c.company_id from Placed p left join Companies c on p.company_id=c.company_id where p.roll_number = {0};</GetCurrentPackage>
+	<ListAllowedCompanies>select company_name, package, c.company_id from AllowedStudents a left join Companies c on a.company_id=c.company_id where student_roll_no={0};</ListAllowedCompanies>
+	<AddPlaced>insert into Placed values({0},{1})</AddPlaced>
+	<UpdatePlaced>update Placed set company_id={0} where roll_number={1};</UpdatePlaced>
+	<CheckPlaced>Select * from Placed where roll_number = {0}</CheckPlaced>
+	<DeletePlaced>delete from Placed where roll_number = {0};</DeletePlaced>
+</Sql>

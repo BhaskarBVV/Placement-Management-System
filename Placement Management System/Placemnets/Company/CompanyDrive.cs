@@ -14,12 +14,13 @@ namespace Placement_Management_System.Company
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Enter the name of the company : ");
             Console.ForegroundColor = ConsoleColor.White;
-            string companyName = Console.ReadLine().ToUpper();
+            string companyName = Console.ReadLine()!.ToUpper();
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Enter tha package offered : ");
             Console.ForegroundColor = ConsoleColor.White;
             double companyPackage = Convert.ToDouble(Console.ReadLine());
-            string sqlCommand = $"insert into Companies (company_name, package) values ('{companyName}',{companyPackage})";
+            string sqlCommand = Util.Utility.GetSqlCommand("AddCompany");
+            sqlCommand=String.Format(sqlCommand, companyName, companyPackage);
             try
             {
                 EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
@@ -31,7 +32,8 @@ namespace Placement_Management_System.Company
                 Console.ForegroundColor = ConsoleColor.White;
                 return;
             }
-            sqlCommand = $"select company_id from Companies where company_name='{companyName}'";
+            sqlCommand = Util.Utility.GetSqlCommand("GetCompanyId");
+            sqlCommand = String.Format(sqlCommand, companyName);
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             int companyId = -1;
             while (reader.Read())
@@ -40,7 +42,7 @@ namespace Placement_Management_System.Company
             }
 
             // creating a list of allowed students
-            sqlCommand = "select s.roll_number, c.company_id, package, s.name from Student s left join Placed p on s.roll_number = p.roll_number left join Companies c on p.company_id=c.company_id;";
+            sqlCommand = Util.Utility.GetSqlCommand("AllowedStudents");
             reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nList of allowed students:");
@@ -54,7 +56,8 @@ namespace Placement_Management_System.Company
                 if (reader[2] == DBNull.Value || currentPackage + 4.0 < companyPackage)
                 {
                     table.AddRow(reader[0], reader[3]);
-                    sqlCommand = $"insert into AllowedStudents values({companyId},'{reader[3]}',{reader[0]});";
+                    sqlCommand = Util.Utility.GetSqlCommand("AddAllowedStudent");
+                    sqlCommand = String.Format(sqlCommand, companyId, reader[3], reader[0]);
                     EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
                 }
             }
@@ -71,7 +74,8 @@ namespace Placement_Management_System.Company
             if (!doesExist)
                 return;
             //finding the current package.
-            string sqlCommand = $"select package,c.company_id from Placed p left join Companies c on p.company_id=c.company_id where p.roll_number = {roll_number};";
+            string sqlCommand = Util.Utility.GetSqlCommand("GetCurrentPackage");
+            sqlCommand = String.Format(sqlCommand, roll_number);
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             int currentPackage = -1, curCompanyId = -1;
             if (reader.Read())
@@ -81,7 +85,8 @@ namespace Placement_Management_System.Company
             }
 
             // getting the list of companies in which student is allowed to sit.
-            sqlCommand = $"select company_name, package, c.company_id from AllowedStudents a left join Companies c on a.company_id=c.company_id where student_roll_no={roll_number};";
+            sqlCommand = Util.Utility.GetSqlCommand("ListAllowedCompanies");
+            sqlCommand = String.Format(sqlCommand, roll_number);
             reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
 
             if (!reader.HasRows)
@@ -120,12 +125,14 @@ namespace Placement_Management_System.Company
 
             if (currentPackage == -1)
             {
-                sqlCommand = $"insert into Placed values({roll_number},{al[idx].id})";
+                sqlCommand = Util.Utility.GetSqlCommand("AddPlaced");
+                sqlCommand = String.Format(sqlCommand, roll_number, al[idx].id);
                 EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             }
             else
             {
-                sqlCommand = $"update Placed set company_id={al[idx].id} where roll_number={roll_number};";
+                sqlCommand = Util.Utility.GetSqlCommand("UpdatePlaced");
+                sqlCommand = String.Format(sqlCommand, al[idx].id, roll_number);
                 EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             }
             Console.ForegroundColor = ConsoleColor.Green;
@@ -143,7 +150,8 @@ namespace Placement_Management_System.Company
             if (!doesExist)
                 return;
 
-            string sqlCommand = $"select company_name, package from AllowedStudents a left join Companies c on a.company_id=c.company_id where student_roll_no={rollNumber};";
+            string sqlCommand = Util.Utility.GetSqlCommand("ListAllowedCompanies");
+            sqlCommand = String.Format(sqlCommand, rollNumber);
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             if (!reader.HasRows)
             {
@@ -173,7 +181,9 @@ namespace Placement_Management_System.Company
             bool doesExist = Utility.ValidateRollNumber(rollNumber);
             if (!doesExist)
                 return;
-            string sqlCommand = $"Select * from Placed where roll_number = {rollNumber}";
+            
+            string sqlCommand = Util.Utility.GetSqlCommand("CheckPlaced");
+            sqlCommand = String.Format(sqlCommand, rollNumber);
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             if(!reader.HasRows)
             {
@@ -182,7 +192,8 @@ namespace Placement_Management_System.Company
                 Console.ForegroundColor = ConsoleColor.White;
                 return;
             }
-            sqlCommand = $"delete from Placed where roll_number = {rollNumber};";
+            sqlCommand = Util.Utility.GetSqlCommand("DeletePlaced");
+            sqlCommand = String.Format(sqlCommand, rollNumber);
             EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Student successfully removed\n");

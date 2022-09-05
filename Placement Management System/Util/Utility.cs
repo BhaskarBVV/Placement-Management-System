@@ -1,6 +1,8 @@
 ﻿using System;
 using MySql.Data.MySqlClient;
+using System.Xml;
 using Placement_Management_System.Database;
+using System.Xml.Linq;
 
 namespace Placement_Management_System.Util
 {
@@ -99,6 +101,14 @@ namespace Placement_Management_System.Util
                 return GetCompanyIndex(arraySize);
             }
             return idx;
+        }
+
+        public static string GetSqlCommand(string nodeName)
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.Load("D:\\codes\\Editors\\C#\\Placement-Management-System\\Placement Management System\\Database\\SqlCommands.xml");
+            XmlNode node = doc.DocumentElement!.SelectSingleNode(nodeName)!;
+            return node.InnerText;
         }
     }
 }
