@@ -8,7 +8,7 @@ namespace Placement_Management_System
     class MainClass
     {
         public static void Main(string[] args)
-        {
+        {  
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nWelcome to Placement Management System\n");
             int remainInLoop = 1;

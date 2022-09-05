@@ -48,12 +48,12 @@ namespace Placement_Management_System.Company
             Console.WriteLine("\nList of allowed students:");
             Table table = new Table("Roll Number", "Name");
             table.Config = TableConfiguration.MySql();
-            int currentPackage = -1;
+            double currentPackage = -1;
             while (reader.Read())
             {
                 if (reader[2] != DBNull.Value)
-                    currentPackage = Convert.ToInt32(reader[2]);
-                if (reader[2] == DBNull.Value || currentPackage + 4.0 < companyPackage)
+                    currentPackage = Convert.ToDouble(reader[2]);
+                if (reader[2] == DBNull.Value || currentPackage + Constants.Const.freezingDifference < companyPackage)
                 {
                     table.AddRow(reader[0], reader[3]);
                     sqlCommand = Util.Utility.GetSqlCommand("AddAllowedStudent");
@@ -98,7 +98,7 @@ namespace Placement_Management_System.Company
             }
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("\nSelected in which company : ");
-            Table table = new Table("S.No.", "Company Name", "Package");
+            Table table = new Table("S.No.", "Company Name", "CTC (Lpa)");
             table.Config = TableConfiguration.MySql();
             List<Pair> al = new List<Pair>();
             int idx = 0;
@@ -162,7 +162,7 @@ namespace Placement_Management_System.Company
             }
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Displaying the list of all comapnies");
-            Table table = new Table("Company Name", "Package");
+            Table table = new Table("Company Name", "CTC (Lpa)");
             table.Config = TableConfiguration.MySql();
             while (reader.Read())
             {
