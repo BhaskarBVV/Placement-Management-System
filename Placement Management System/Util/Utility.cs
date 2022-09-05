@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System.Xml;
 using Placement_Management_System.Database;
 using System.Xml.Linq;
+using BetterConsoleTables;
 
 namespace Placement_Management_System.Util
 {
@@ -44,15 +45,20 @@ namespace Placement_Management_System.Util
 
         public static int GetChoice()
         {
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("Select form available operations: ");
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Enter 1 to display all students");
-            Console.WriteLine("Enter 2 to add new company drive");
-            Console.WriteLine("Enter 3 to list all placed students");
-            Console.WriteLine("Enter 4 to list all unplaced students");
-            Console.WriteLine("Enter 5 to see a student is allowed in which all companies");
-            Console.WriteLine("Enter 6 to add placed student");
-            Console.WriteLine("Enter 7 to delete a placed student");
-            Console.WriteLine("Enter 0 to exit");
+            Table table = new Table("Enter", "Operation");
+            table.AddRow('1', "Display all students");
+            table.AddRow('2', "Add new company drive");
+            table.AddRow('3', "List all placed students");
+            table.AddRow('4', "List all unplaced students");
+            table.AddRow('5', "See a student is allowed in which all companies");
+            table.AddRow('6', "Add placed student");
+            table.AddRow('7', "Delete a placed student");
+            table.AddRow('0', "Exit");
+            table.Config = TableConfiguration.MySql();
+            Console.WriteLine(table.ToString());
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nEnter your choice : ");
             Console.ForegroundColor = ConsoleColor.White;
