@@ -1,8 +1,7 @@
-﻿
-insert into Student values(190,"bhaskar");
-insert into Student values(191,"bhaskar2");
-
-
+insert into Student values(190,"ABC");
+insert into Student values(191,"XYZ");
+insert into Student values(192,"MNO");
+insert into Student values(193,"PQR");
 
 
 
