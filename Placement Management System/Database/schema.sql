@@ -1,4 +1,4 @@
-﻿drop database project2;
+drop database project2;
 create database project2;
 use project2;
 
