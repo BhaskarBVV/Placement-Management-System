@@ -1,8 +1,10 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Placement Management System"
+    "\\Placement Management System",
+    "\\Placement Management System\\Placemnets",
+    "\\Placement Management System\\Placemnets\\Company"
   ],
-  "SelectedNode": "\\Placement Management System\\Main.cs",
+  "SelectedNode": "\\Placement Management System\\Placemnets\\Company\\CompanyDrive.cs",
   "PreviewInSolutionExplorer": false
 }
