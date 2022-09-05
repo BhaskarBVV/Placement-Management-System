@@ -69,13 +69,13 @@ namespace Placement_Management_System.Company
 
         public static void AddSelectedStudent()
         {
-            int roll_number = Utility.GetRollNumber();
-            bool doesExist = Utility.ValidateRollNumber(roll_number);
+            int rollNumber = Utility.GetRollNumber();
+            bool doesExist = Utility.ValidateRollNumber(rollNumber);
             if (!doesExist)
                 return;
             //finding the current package.
             string sqlCommand = Util.Utility.GetSqlCommand("GetCurrentPackage");
-            sqlCommand = String.Format(sqlCommand, roll_number);
+            sqlCommand = String.Format(sqlCommand, rollNumber);
             MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             int currentPackage = -1, curCompanyId = -1;
             if (reader.Read())
@@ -86,7 +86,7 @@ namespace Placement_Management_System.Company
 
             // getting the list of companies in which student is allowed to sit.
             sqlCommand = Util.Utility.GetSqlCommand("ListAllowedCompanies");
-            sqlCommand = String.Format(sqlCommand, roll_number);
+            sqlCommand = String.Format(sqlCommand, rollNumber);
             reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
 
             if (!reader.HasRows)
@@ -100,12 +100,12 @@ namespace Placement_Management_System.Company
             Console.WriteLine("\nSelected in which company : ");
             Table table = new Table("S.No.", "Company Name", "Package");
             table.Config = TableConfiguration.MySql();
-            List<pair> al = new List<pair>();
+            List<Pair> al = new List<Pair>();
             int idx = 0;
             while (reader.Read())
             {
                 table.AddRow(idx, reader[0], reader[1]);
-                al.Add(new pair(Convert.ToString(reader[0]), Convert.ToDouble(reader[1]), Convert.ToInt32(reader[2])));
+                al.Add(new Pair(Convert.ToString(reader[0]), Convert.ToDouble(reader[1]), Convert.ToInt32(reader[2])));
                 idx++;
             }
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
@@ -126,13 +126,13 @@ namespace Placement_Management_System.Company
             if (currentPackage == -1)
             {
                 sqlCommand = Util.Utility.GetSqlCommand("AddPlaced");
-                sqlCommand = String.Format(sqlCommand, roll_number, al[idx].id);
+                sqlCommand = String.Format(sqlCommand, rollNumber, al[idx].id);
                 EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             }
             else
             {
                 sqlCommand = Util.Utility.GetSqlCommand("UpdatePlaced");
-                sqlCommand = String.Format(sqlCommand, al[idx].id, roll_number);
+                sqlCommand = String.Format(sqlCommand, al[idx].id, rollNumber);
                 EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
             }
             Console.ForegroundColor = ConsoleColor.Green;

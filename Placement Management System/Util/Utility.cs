@@ -14,11 +14,11 @@ namespace Placement_Management_System.Util
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("Enter the roll number : ");
             Console.ForegroundColor = ConsoleColor.White;
-            var user_input = Console.ReadLine();
-            int roll_number;
+            var userInput = Console.ReadLine();
+            int rollNumber;
             try
             {
-                roll_number = Convert.ToInt32(user_input);
+                rollNumber = Convert.ToInt32(userInput);
             }
             catch
             {
@@ -26,7 +26,7 @@ namespace Placement_Management_System.Util
                 Console.WriteLine("\n---Print Invlaid number, try again---\n");
                 return GetRollNumber();
             }
-            return roll_number;
+            return rollNumber;
         }
 
         public static bool ValidateRollNumber(int roll)
