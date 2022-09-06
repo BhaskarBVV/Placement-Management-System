@@ -15,10 +15,7 @@ namespace Placement_Management_System.Company
             Console.WriteLine("Enter the name of the company : ");
             Console.ForegroundColor = ConsoleColor.White;
             string companyName = Console.ReadLine()!.ToUpper();
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Enter tha package offered : ");
-            Console.ForegroundColor = ConsoleColor.White;
-            double companyPackage = Convert.ToDouble(Console.ReadLine());
+            double companyPackage =Utility.GetInput("Package"); ;
             string sqlCommand = Util.Utility.GetSqlCommand("AddCompany");
             sqlCommand=String.Format(sqlCommand, companyName, companyPackage);
             try
@@ -69,7 +66,7 @@ namespace Placement_Management_System.Company
 
         public static void AddSelectedStudent()
         {
-            int rollNumber = Utility.GetRollNumber();
+            int rollNumber = Convert.ToInt32(Utility.GetInput("Roll Number"));
             bool doesExist = Utility.ValidateRollNumber(rollNumber);
             if (!doesExist)
                 return;
@@ -144,7 +141,7 @@ namespace Placement_Management_System.Company
         public static void StudentAllowedCompanies()
         {
             // this function is used to display the list of all the companies in which the student was allowed to sit
-            int rollNumber = Utility.GetRollNumber();
+            int rollNumber = Convert.ToInt32(Utility.GetInput("Roll Number"));
             Console.WriteLine();
             bool doesExist = Utility.ValidateRollNumber(rollNumber);
             if (!doesExist)
@@ -176,7 +173,7 @@ namespace Placement_Management_System.Company
 
         public static void DeletePlacedStudent()
         {
-            int rollNumber = Utility.GetRollNumber();
+            int rollNumber = Convert.ToInt32(Utility.GetInput("Roll Number"));
             Console.WriteLine();
             bool doesExist = Utility.ValidateRollNumber(rollNumber);
             if (!doesExist)

@@ -9,22 +9,22 @@ namespace Placement_Management_System.Util
 {
     internal class Utility
     {
-        public static int GetRollNumber()
+        public static double GetInput(string inputType)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("Enter the roll number : ");
+            Console.WriteLine($"Enter the {inputType} : ");
             Console.ForegroundColor = ConsoleColor.White;
             var userInput = Console.ReadLine();
-            int rollNumber;
+            double rollNumber;
             try
             {
-                rollNumber = Convert.ToInt32(userInput);
+                rollNumber = Convert.ToDouble(userInput);
             }
             catch
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\n--OOPS! Invlaid Roll Number type, try again---\n");
-                return GetRollNumber();
+                return GetInput(inputType);
             }
             return rollNumber;
         }
