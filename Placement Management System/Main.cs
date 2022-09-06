@@ -20,7 +20,7 @@ namespace Placement_Management_System
                 {
                     case 0:
                         remainInLoop=0;
-                        break;
+                        return;
                     case 1:
                         DisplayStudents.DisplayAll();
                         break;
@@ -43,6 +43,9 @@ namespace Placement_Management_System
                         CompanyDrive.DeletePlacedStudent();
                         break;
                 }
+                Console.WriteLine("Press any key to continue : ");
+                var input = Console.ReadKey().KeyChar;
+                Console.Clear();
             }
         }
     }

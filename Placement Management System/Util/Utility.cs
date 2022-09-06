@@ -23,7 +23,7 @@ namespace Placement_Management_System.Util
             catch
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\n---Print Invlaid number, try again---\n");
+                Console.WriteLine("\n--OOPS! Invlaid Roll Number type, try again---\n");
                 return GetRollNumber();
             }
             return rollNumber;
@@ -72,13 +72,15 @@ namespace Placement_Management_System.Util
             catch
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\n---Print Invlaid choice, try again---\n");
+                Console.Clear();
+                ErrorPrinter("OOPS! its an Invlaid input! Try again", "Try from options below");
                 return GetChoice();
             }
             if (!(choice >= 0 && choice <= 7))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("\n---Print Invlaid choice, try again---\n");
+                Console.Clear();
+                ErrorPrinter("OOPS! Its an Invlaid choice!! try again", "Try from options below");
                 return GetChoice();
             }
             return choice;
@@ -99,7 +101,7 @@ namespace Placement_Management_System.Util
                 Console.ForegroundColor = ConsoleColor.White;
                 return GetCompanyIndex(arraySize);
             }
-            while (!(idx >= 0 && idx <= arraySize))
+            while (!(idx >= 0 && idx <arraySize))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Invlaid index try again");
@@ -115,6 +117,15 @@ namespace Placement_Management_System.Util
             doc.Load("D:\\codes\\Editors\\C#\\Placement-Management-System\\Placement Management System\\Database\\SqlCommands.xml");
             XmlNode node = doc.DocumentElement!.SelectSingleNode(nodeName)!;
             return node.InnerText;
+        }
+
+        public static void ErrorPrinter(string errorName, string tryThis)
+        {
+            Table table = new Table(errorName);
+            table.Config = TableConfiguration.MySql();
+            table.AddRow(tryThis);
+            Console.WriteLine(table.ToString());
+            return;
         }
     }
 }
