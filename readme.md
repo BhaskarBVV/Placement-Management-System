@@ -15,6 +15,8 @@
    e) See a student is allowed in which all companies <br>
    f) Add placed student <br>
    g) Delete a placed student" <br>
+   h) Get campus placement status <br>
+   i) List all Students placed in particular company <br>
 
 # Output:
 ![image](https://user-images.githubusercontent.com/71118230/188327516-8cc0b476-7312-4fa2-84bd-3d808a9fd829.png)
@@ -23,7 +25,7 @@
 ![image](https://user-images.githubusercontent.com/71118230/188324716-d8a28b9c-c311-4777-94c5-f3f0bcc6c4e6.png)
 
 # Operations:
-![image](https://user-images.githubusercontent.com/71118230/188327222-c1bd4a4e-f22b-4772-8d8a-dcb5fbcee796.png)
+![GetImage](https://user-images.githubusercontent.com/71118230/189349859-3dfa19aa-57b8-426e-8695-e22ec32f08ca.png)
 
 # Flowchart:
 ![Placement Management flowchart drawio](https://user-images.githubusercontent.com/71118230/188327303-f44f0a20-e556-4680-95ed-5455f70780cc.png)
