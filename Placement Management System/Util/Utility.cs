@@ -56,6 +56,8 @@ namespace Placement_Management_System.Util
             table.AddRow('5', "See a student is allowed in which all companies");
             table.AddRow('6', "Add placed student");
             table.AddRow('7', "Delete a placed student");
+            table.AddRow('8', "Get campus placement status");
+            table.AddRow('9', "List all Students placed in particular company");
             table.AddRow('0', "Exit");
             table.Config = TableConfiguration.MySql();
             Console.WriteLine(table.ToString());
@@ -76,7 +78,7 @@ namespace Placement_Management_System.Util
                 ErrorPrinter("OOPS! its an Invlaid input! Try again", "Try from options below");
                 return GetChoice();
             }
-            if (!(choice >= 0 && choice <= 7))
+            if (!(choice >= 0 && choice <= 9))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Clear();

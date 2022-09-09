@@ -42,9 +42,21 @@ namespace Placement_Management_System
                     case 7:
                         CompanyDrive.DeletePlacedStudent();
                         break;
+                    case 8:
+                        CompanyDrive.GetDrivesStatus();
+                        break;
+                    case 9:
+                        DisplayStudents.FetchParticularCompnayStatus();
+                        break;
                 }
-                Console.WriteLine("Press any key to continue : ");
-                var input = Console.ReadKey().KeyChar;
+                Console.WriteLine("Press any key to continue (0 to exit) : ");
+                var input = Console.ReadKey().Key;
+                try
+                {
+                    if(input==ConsoleKey.D0)
+                            return;
+                }
+                catch { }
                 Console.Clear();
             }
         }

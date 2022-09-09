@@ -13,4 +13,7 @@
 	<UpdatePlaced>update Placed set company_id={0} where roll_number={1};</UpdatePlaced>
 	<CheckPlaced>Select * from Placed where roll_number = {0}</CheckPlaced>
 	<DeletePlaced>delete from Placed where roll_number = {0};</DeletePlaced>
+	<DrivesStatus>select company_name, count(*) as total from Placed p, Companies c where c.company_id=p.company_id group by c.company_id;</DrivesStatus>
+	<GetAllCompanies>select company_name, package, company_id from Companies;</GetAllCompanies>
+	<FetchCompanyRecord>select name from Student s right join Placed p on s.roll_number = p.roll_number left join Companies c on p.company_id = c.company_id where p.company_id = {0};</FetchCompanyRecord>
 </Sql>

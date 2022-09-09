@@ -1,6 +1,5 @@
 ﻿using System;
 using BetterConsoleTables;
-using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 using Placement_Management_System.Database;
 using Placement_Management_System.Util;
@@ -196,6 +195,30 @@ namespace Placement_Management_System.Company
             Console.WriteLine("Student successfully removed\n");
             Console.ForegroundColor = ConsoleColor.White;
             return;
+        }
+
+        public static void GetDrivesStatus()
+        {
+            string sqlCommand = Util.Utility.GetSqlCommand("DrivesStatus");
+            MySqlDataReader reader = EditAndSaveDatabase.ReadAndUpdateDatabase(sqlCommand);
+            if (!reader.HasRows)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Opps! No one placed yet !!\n");
+                Console.ForegroundColor = ConsoleColor.White;
+                return;
+            }
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Displaying campus placement status");
+            Table table = new Table("Company Name", "Number of Students Hired");
+            table.Config = TableConfiguration.MySql();
+            while(reader.Read())
+            {
+                table.AddRow(reader[0], reader[1]);
+            }
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine(table.ToString());
+            Console.ForegroundColor = ConsoleColor.White;
         }
     }
 }
