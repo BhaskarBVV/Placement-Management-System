@@ -7,7 +7,7 @@ using BetterConsoleTables;
 
 namespace Placement_Management_System.Util
 {
-    internal class Utility
+    public class Utility
     {
         public static double GetInput(string inputType)
         {
@@ -113,9 +113,13 @@ namespace Placement_Management_System.Util
 
         public static string GetSqlCommand(string nodeName)
         {
+            if(nodeName == "" || nodeName== null)
+                return "Invalid Command";
             XmlDocument doc = new XmlDocument();
             doc.Load("D:\\codes\\Editors\\C#\\Placement-Management-System\\Placement Management System\\Database\\SqlCommands.xml");
             XmlNode node = doc.DocumentElement!.SelectSingleNode(nodeName)!;
+            if (node == null)
+                return "No such Sql command found";
             return node.InnerText;
         }
 

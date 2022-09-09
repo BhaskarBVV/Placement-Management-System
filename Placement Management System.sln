@@ -5,6 +5,8 @@ VisualStudioVersion = 17.3.32819.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Placement Management System", "Placement Management System\Placement Management System.csproj", "{A8196DC5-9688-4677-8B86-D98A85BE1FFB}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PMSTester", "TestProject1\PMSTester.csproj", "{BB4E6A80-3865-4E41-A3EB-6EEDF0420C79}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A8196DC5-9688-4677-8B86-D98A85BE1FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A8196DC5-9688-4677-8B86-D98A85BE1FFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A8196DC5-9688-4677-8B86-D98A85BE1FFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB4E6A80-3865-4E41-A3EB-6EEDF0420C79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB4E6A80-3865-4E41-A3EB-6EEDF0420C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB4E6A80-3865-4E41-A3EB-6EEDF0420C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB4E6A80-3865-4E41-A3EB-6EEDF0420C79}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
